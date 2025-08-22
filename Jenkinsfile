@@ -19,8 +19,12 @@ pipeline {
 
         stage('unit-tests') {
             steps {
-                sh 'yarn test'
-                junit '**/reports/**/*.xml'
+                sh 'yarn test' 
+            }
+            post {
+                always {
+                    junit '**/reports/**/*.xml'
+                }
             }
         }
 
