@@ -20,7 +20,7 @@ pipeline {
         stage('unit-tests') {
             steps {
                 sh 'yarn test'
-                sh "junit '**/reports/**/*.xml'"
+                junit '**/reports/**/*.xml'
             }
         }
 
