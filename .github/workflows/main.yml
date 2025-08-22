@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., 1.0.0)'
+        required: true
   
 permissions:
   checks: write
@@ -36,5 +40,11 @@ jobs:
       uses: mikepenz/action-junit-report@v5.6.2
       with:
         # Xml report paths in glob format
-        report_paths: '**/reports/**/*.xml'
+        report_paths: '**/reports/**/*.xml'  
+    - name: Create tag
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git tag ${{ github.event.inputs.version }}
+        git push origin ${{ github.event.inputs.version }}
               
